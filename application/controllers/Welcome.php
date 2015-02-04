@@ -19,7 +19,8 @@ class Welcome extends Application {
     //  The normal pages
     //-------------------------------------------------------------
 
-    function index() {
+    function index() 
+    {
         $this->data['title'] = 'Jim\'s Joint!';
         $this->data['pagebody'] = 'welcome';
 
@@ -28,8 +29,13 @@ class Welcome extends Application {
 
         // Build a multi-dimensional array for reporting
         $orders = array();
-        foreach ($completed as $order) {
-            $this1 = array(
+
+        $completed = $this->orders->some('status','c');
+
+        foreach ($completed as $order) 
+        {
+            $this1 = array
+            (
                 'num' => $order->num,
                 'datetime' => $order->date,
                 'amount' => $order->total
