@@ -41,27 +41,36 @@ class Order extends Application {
 
         //FIXME
         $order = $this->orders->get($order_num);
+        $total = $this->orders->total($order_num);
 
-        $this->data['title'] = $order_num;
+        $this->data['title'] = "Order # " . $order->num . " Total: " . $total ;
 
         // Make the columns
-        $this->data['meals'] = $this->make_column('m');
-        $this->data['drinks'] = $this->make_column('d');
-        $this->data['sweets'] = $this->make_column('s');
+        $this->data['meals'] = $this->make_column('m', $order_num);
+        $this->data['drinks'] = $this->make_column('d', $order_num);
+        $this->data['sweets'] = $this->make_column('s', $order_num);
 
         $this->render();
     }
 
     // make a menu ordering column
-    function make_column($category) {
+    function make_column($category, $num) {
         //FIXME
         //return $items;
-        return $this->menu->some('category',$category);
+        $results = $this->menu->some('category',$category);
+
+        foreach( $results as $result)
+        {
+            $result->order_num = $num;   
+        }
+
+        return $results;
     }
 
     // add an item to an order
     function add($order_num, $item) {
         //FIXME
+        $this->orders->add_item($order_num, $item);
         redirect('/order/display_menu/' . $order_num);
     }
 

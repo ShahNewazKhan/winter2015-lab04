@@ -165,7 +165,8 @@ class MY_Model extends CI_Model implements Active_Record {
     // Create a new data object.
     // Only use this method if intending to create an empty record and then
     // populate it.
-    function create() {
+    function create() 
+    {
         $names = $this->db->list_fields($this->_tableName);
         $object = new StdClass;
         foreach ($names as $name)
@@ -174,7 +175,8 @@ class MY_Model extends CI_Model implements Active_Record {
     }
 
     // Add a record to the DB
-    function add($record) {
+    function add($record) 
+    {
         // convert object to associative array, if needed
         if (is_object($record)) {
             $data = get_object_vars($record);
@@ -228,21 +230,24 @@ class MY_Model extends CI_Model implements Active_Record {
 //  Aggregate methods
 //---------------------------------------------------------------------------
     // Return all records as an array of objects
-    function all() {
+    function all() 
+    {
         $this->db->order_by($this->_keyField, 'asc');
         $query = $this->db->get($this->_tableName);
         return $query->result();
     }
 
     // Return all records as a result set
-    function results() {
+    function results() 
+    {
         $this->db->order_by($this->_keyField, 'asc');
         $query = $this->db->get($this->_tableName);
         return $query;
     }
 
     // Return filtered records as an array of records
-    function some($what, $which) {
+    function some($what, $which) 
+    {
         $this->db->order_by($this->_keyField, 'asc');
         if (($what == 'period') && ($which < 9)) {
             $this->db->where($what, $which); // special treatment for period
