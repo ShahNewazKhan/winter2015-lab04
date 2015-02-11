@@ -10,6 +10,9 @@ class Orders extends MY_Model {
     // constructor
     function __construct() {
         parent::__construct('orders', 'num');
+
+        $CI = &get_instance(); 
+        $CI->load->model('orderitems');
     }
 
     // add an item to an order
@@ -57,7 +60,8 @@ class Orders extends MY_Model {
     }
 
     // retrieve the details for an order
-    function details($num) {
+    function details($num) 
+    {
         
     }
 

@@ -43,6 +43,10 @@ class Order extends Application {
         $order = $this->orders->get($order_num);
         $total = $this->orders->total($order_num);
 
+        setlocale(LC_MONETARY, 'en_CA');
+        
+        $total = money_format('%i', $total); 
+
         $this->data['title'] = "Order # " . $order->num . " Total: " . $total ;
 
         // Make the columns
@@ -79,8 +83,10 @@ class Order extends Application {
         $this->data['title'] = 'Checking Out';
         $this->data['pagebody'] = 'show_order';
         $this->data['order_num'] = $order_num;
+        $this->data['total'] = $this->orders->total($order_num);
         //FIXME
-
+        
+        $this->data['items'] = $orderItems;
         $this->render();
     }
 
